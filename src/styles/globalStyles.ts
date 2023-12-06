@@ -27,6 +27,10 @@ export const GlobalStyles = createGlobalStyle`
     color: ${props => props.theme["base-text"]};
   }
 
+  a{
+    color: ${props => props.theme.blue};
+    text-decoration: none;
+  }
 
 
   body, html {

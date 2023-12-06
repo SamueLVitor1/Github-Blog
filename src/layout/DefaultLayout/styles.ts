@@ -6,4 +6,11 @@ export const LayoutContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  main{
+    max-width: 86.4rem;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: -8.9rem;
+  }
 `
