@@ -32,7 +32,7 @@ export const InfosProfileDate = styled.section`
     margin-bottom: 8px;
 
     h2{
-      color: ${props=>props.theme["base-title"]};
+      color: ${props => props.theme["base-title"]};
       font-size: 2.4rem;
       line-height: 130%;
     }
@@ -42,6 +42,36 @@ export const InfosProfileDate = styled.section`
       font-size: 13px;
       align-items: center;
       gap: 6px;
+      border-bottom: 1px solid transparent;
+
+      &:hover{
+        border-color: ${props => props.theme["blue"]};
+      }
+    }
+  }
+
+  section{
+    margin-bottom: 2.4rem;
+    p{
+      color: ${props => props.theme["base-text"]};
+      font-size: 1.5rem;
+      line-height: 160%;
+    }
+  }
+
+  footer{
+    display: flex;
+    gap: 14px;
+
+    svg{
+      width: 18px;
+      height: 18px;
+    }
+
+    p{
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
   }
 `
