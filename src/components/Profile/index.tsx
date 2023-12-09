@@ -19,7 +19,6 @@ export function Profile() {
     axios
       .get("https://api.github.com/users/SamueLVitor1")
       .then((response) => {
-        console.log(response.data);
         setProfileInfos({
           avatar: response.data.avatar_url,
           company: response.data.company,

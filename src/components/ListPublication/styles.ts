@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 export const ListPublicationContainer = styled.ul`
+  padding: 1rem;
   display: grid;
   gap: 3rem;
   grid-template-columns: repeat(2, minmax(200px, 1fr));
@@ -44,5 +45,10 @@ export const ListPublicationContainer = styled.ul`
       }
     }
     
+    section{
+      p{
+        overflow: hidden; 
+      }
+    }
   }
 `
