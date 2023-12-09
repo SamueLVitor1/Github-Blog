@@ -13,10 +13,9 @@ export function ListPublication() {
       .then((response) => setListPublication(response.data.items));
   }, []);
 
-  console.log(listPublication);
   return (
     <ListPublicationContainer>
-      {listPublication.map((publication, index) => {
+      {listPublication ? listPublication.map((publication, index) => {
         return (
           <li key={index}>
             <header>
@@ -34,7 +33,9 @@ export function ListPublication() {
             </section>
           </li>
         );
-      })}
+      }): "null"}
+
+
     </ListPublicationContainer>
   );
 }
