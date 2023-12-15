@@ -25,6 +25,7 @@ export const ListPublicationContainer = styled.ul`
     cursor: pointer;
     transition: all 0.2s;
     
+    
     &:hover{
       transform: scale(1.02);
     }
@@ -47,7 +48,8 @@ export const ListPublicationContainer = styled.ul`
     
     section{
       p{
-        overflow: hidden; 
+        height: 112px;
+        overflow-y: hidden;
       }
     }
   }

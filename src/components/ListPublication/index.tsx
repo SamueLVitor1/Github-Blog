@@ -2,40 +2,45 @@ import { useEffect, useState } from "react";
 import { ListPublicationContainer } from "./styles";
 import axios from "axios";
 
+interface PublicationInterface {
+  title: string;
+  body: string;
+}
+
 export function ListPublication() {
-  const [listPublication, setListPublication] = useState([]);
+  const [listPublications, setListPublication] = useState<
+    PublicationInterface[]
+  >([]);
 
   useEffect(() => {
     axios
       .get(
         "https://api.github.com/search/issues?q=repo:SamueLVitor1/Github-Blog"
       )
-      .then((response) => setListPublication(response.data.items));
+      .then((response) => {
+        console.log(response.data);
+        setListPublication(response.data.items);
+      });
   }, []);
 
   return (
     <ListPublicationContainer>
-      {listPublication ? listPublication.map((publication, index) => {
-        return (
-          <li key={index}>
-            <header>
-              <h3>{publication.title}</h3>
-              <p>Há 1 dia</p>
-            </header>
+      {listPublications
+        ? listPublications.map((publication, index) => {
+            return (
+              <li key={index}>
+                <header>
+                  <h3>{publication.title}</h3>
+                  <p>Há 1 dia</p>
+                </header>
 
-            <section>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore
-                vitae, nobis molestias cumque sapiente vel, minus iure, eaque
-                inventore est totam! Placeat atque quas ex dolorem quae totam
-                nemo asperiores?
-              </p>
-            </section>
-          </li>
-        );
-      }): "null"}
-
-
+                <section>
+                  <p>{publication.body}</p>
+                </section>
+              </li>
+            );
+          })
+        : "null"}
     </ListPublicationContainer>
   );
 }
