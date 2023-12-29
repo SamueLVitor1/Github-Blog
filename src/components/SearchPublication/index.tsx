@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SearchPublicationsContainer } from "./styles";
 import { GitHContext } from "../../context/GitHubContext";
+import axios from "axios";
 
 export function SearchPublications() {
   const [searchValue, setSearchValue] = useState("");
-
+  const [listNumberPublication,setListNumberPublication] = useState()
   const {handleSetNamePublication, namePublication} = useContext(GitHContext)
 
   function handleSearch(textSearch: string) {
@@ -14,10 +15,20 @@ export function SearchPublications() {
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
-      handleSetNamePublication(searchValue)
+      handleSetNamePublication("")
       setSearchValue("");
     }
   }
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.github.com/search/issues?q=repo:SamueLVitor1/Github-Blog"
+      )
+      .then((response) => {
+        setListNumberPublication(response.data.items.length);
+      });
+  }, []);
 
   console.log(namePublication)
 
@@ -27,7 +38,7 @@ export function SearchPublications() {
         <h3>Publicações</h3>
 
         <div>
-          <span>6</span>
+          <span>{listNumberPublication}</span>
           <p>publicações</p>
         </div>
       </header>

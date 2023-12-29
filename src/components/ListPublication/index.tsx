@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ListPublicationContainer } from "./styles";
 import axios from "axios";
+import { GitHContext } from "../../context/GitHubContext";
 
 interface PublicationInterface {
   title: string;
@@ -12,16 +13,37 @@ export function ListPublication() {
     PublicationInterface[]
   >([]);
 
+  const [publicationsSearched, setPublicationsSearched] = useState<PublicationInterface[]>([])
+
+  const {namePublication} = useContext(GitHContext)
+
+
   useEffect(() => {
     axios
       .get(
         "https://api.github.com/search/issues?q=repo:SamueLVitor1/Github-Blog"
       )
       .then((response) => {
-        console.log(response.data);
         setListPublication(response.data.items);
       });
   }, []);
+
+  useEffect(()=>{
+    if (listPublications.length === 0) {
+      return;
+    }
+    
+    setPublicationsSearched([]);
+
+    listPublications.map(item=>{
+      if(item.title.includes(namePublication)){
+        setPublicationsSearched([...publicationsSearched, item])
+      }
+    })
+
+  }, [namePublication])
+
+  console.log(publicationsSearched)
 
   return (
     <ListPublicationContainer>

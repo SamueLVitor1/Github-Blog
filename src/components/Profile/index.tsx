@@ -42,7 +42,7 @@ export function Profile() {
         <header>
           <h2>{profileInfos ? profileInfos.name : "carregando"}</h2>
 
-          <a href="#">
+          <a href="https://github.com/SamueLVitor1" target="_blank">
             GITHUB
             <ArrowSquareUpRight size={16} color="#3294f8" weight="bold" />
           </a>
