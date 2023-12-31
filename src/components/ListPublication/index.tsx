@@ -13,10 +13,11 @@ export function ListPublication() {
     PublicationInterface[]
   >([]);
 
-  const [publicationsSearched, setPublicationsSearched] = useState<PublicationInterface[]>([])
+  const [publicationsSearched, setPublicationsSearched] = useState<
+    PublicationInterface[]
+  >([]);
 
-  const {namePublication} = useContext(GitHContext)
-
+  const { namePublication } = useContext(GitHContext);
 
   useEffect(() => {
     axios
@@ -28,41 +29,67 @@ export function ListPublication() {
       });
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (listPublications.length === 0) {
       return;
     }
-    
+
     setPublicationsSearched([]);
 
-    listPublications.map(item=>{
-      if(item.title.includes(namePublication)){
-        setPublicationsSearched([...publicationsSearched, item])
+    listPublications.map((item) => {
+      if (item.title.includes(namePublication)) {
+        setPublicationsSearched([item]);
       }
-    })
+    });
+  }, [namePublication]);
 
-  }, [namePublication])
+  console.log(publicationsSearched);
 
-  console.log(publicationsSearched)
+  if (namePublication === "") {
+    return (
+      <>
+        <ListPublicationContainer>
+          {listPublications
+            ? listPublications.map((publication, index) => {
+                return (
+                  <li key={index}>
+                    <header>
+                      <h3>{publication.title}</h3>
+                      <p>Há 1 dia</p>
+                    </header>
 
-  return (
-    <ListPublicationContainer>
-      {listPublications
-        ? listPublications.map((publication, index) => {
-            return (
-              <li key={index}>
-                <header>
-                  <h3>{publication.title}</h3>
-                  <p>Há 1 dia</p>
-                </header>
+                    <section>
+                      <p>{publication.body}</p>
+                    </section>
+                  </li>
+                );
+              })
+            : "null"}
+        </ListPublicationContainer>
+      </>
+    );
+  }
 
-                <section>
-                  <p>{publication.body}</p>
-                </section>
-              </li>
-            );
-          })
-        : "null"}
-    </ListPublicationContainer>
-  );
+  if(namePublication != ""){
+    return(
+      <ListPublicationContainer>
+          {publicationsSearched.length > 0
+            ? publicationsSearched.map((publication, index) => {
+                return (
+                  <li key={index}>
+                    <header>
+                      <h3>{publication.title}</h3>
+                      <p>Há 1 dia</p>
+                    </header>
+
+                    <section>
+                      <p>{publication.body}</p>
+                    </section>
+                  </li>
+                );
+              })
+            : <h3>Conteúdo não encontrado 😕</h3>}
+        </ListPublicationContainer>
+    )
+  }
 }

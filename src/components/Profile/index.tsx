@@ -91,7 +91,7 @@ export function Profile() {
             </svg>
             {profileInfos
               ? profileInfos.company === null
-                ? "null"
+                ? ""
                 : "carregando"
               : "null"}
           </p>
