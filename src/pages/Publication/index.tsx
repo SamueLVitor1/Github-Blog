@@ -1,16 +1,31 @@
 import { ArrowSquareUpRight } from "@phosphor-icons/react";
 import { PublicationHeader, PublicationBody } from "./styles";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function Publication() {
+  const [publicationInfos, setPublicationInfo] = useState()
 
-  const {id} = useParams()
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.github.com/search/issues?q=${id}=repo:SamueLVitor1/Github-Blog`
+      )
+      .then((response) => {
+        setPublicationInfo(response.data.items);
+      });
+  }, []);
 
   return (
     <>
       <PublicationHeader>
         <header>
-          <h3>voltar</h3>
+          <Link to="/">
+            <h3>voltar</h3>
+          </Link>
 
           <a href="#">
             VER NO GITHUB
@@ -18,7 +33,7 @@ export function Publication() {
           </a>
         </header>
 
-        <h2>JavaScript data types and data structures</h2>
+        <h2></h2>
 
         <footer>
           <p>
@@ -73,7 +88,6 @@ export function Publication() {
                 fill="#3A536B"
               />
             </svg>
-
             5 comentarios
           </p>
         </footer>

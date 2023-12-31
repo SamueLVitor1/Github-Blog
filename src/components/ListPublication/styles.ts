@@ -14,6 +14,10 @@ export const ListPublicationContainer = styled.ul`
     grid-template-columns: repeat(1, minmax(200px, 400px));
   }
 
+  a{
+    color: ${props => props.theme["base-text"]};
+  }
+
   li{
     display: flex;
     flex-direction: column;

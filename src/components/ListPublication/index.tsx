@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 interface PublicationInterface {
   title: string;
   body: string;
+  id: number;
 }
 
 export function ListPublication() {
@@ -18,7 +19,7 @@ export function ListPublication() {
     PublicationInterface[]
   >([]);
 
-  const { namePublication } = useContext(GitHContext);
+  const { namePublication, handleSetNumberQuantityPublications } = useContext(GitHContext);
 
   useEffect(() => {
     axios
@@ -28,6 +29,7 @@ export function ListPublication() {
       .then((response) => {
         console.log(response.data);
         setListPublication(response.data.items);
+        handleSetNumberQuantityPublications(response.data.items.length);
       });
   }, []);
 

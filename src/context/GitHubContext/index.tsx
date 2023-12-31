@@ -4,7 +4,9 @@ import { ReactNode, createContext, useState } from "react";
 // vou tipar as coisas que vou enviar do contexto
 interface GitHContextType {
   handleSetNamePublication:(text: string) => void,
-  namePublication: string
+  namePublication: string,
+  handleSetNumberQuantityPublications: (number: number) => void,
+  numberQuantityPublications: number
 }
 
 interface GitHContextProviderProps {
@@ -17,8 +19,14 @@ export const GitHContext = createContext({} as GitHContextType);
 export function GitHContextProvider({ children }: GitHContextProviderProps) {
   const [namePublication, setNamePublication] = useState("")
 
+  const [numberQuantityPublications, setNumberQuantityPublications] = useState(0)
+
   function handleSetNamePublication(text: string){
     setNamePublication(text)
+  }
+
+  function handleSetNumberQuantityPublications(number: number){
+    setNumberQuantityPublications(number)
   }
 
   
@@ -26,7 +34,9 @@ export function GitHContextProvider({ children }: GitHContextProviderProps) {
     <GitHContext.Provider
       value={{
         handleSetNamePublication,
-        namePublication
+        namePublication,
+        handleSetNumberQuantityPublications,
+        numberQuantityPublications
       }}
     >
       {children}
