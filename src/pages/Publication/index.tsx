@@ -1,7 +1,11 @@
 import { ArrowSquareUpRight } from "@phosphor-icons/react";
 import { PublicationHeader, PublicationBody } from "./styles";
+import { useParams } from "react-router-dom";
 
 export function Publication() {
+
+  const {id} = useParams()
+
   return (
     <>
       <PublicationHeader>
@@ -75,7 +79,7 @@ export function Publication() {
         </footer>
       </PublicationHeader>
       <PublicationBody>
-        
+        <p>{id}</p>
       </PublicationBody>
     </>
   );

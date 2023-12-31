@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ListPublicationContainer } from "./styles";
 import axios from "axios";
 import { GitHContext } from "../../context/GitHubContext";
+import { Link } from "react-router-dom";
 
 interface PublicationInterface {
   title: string;
@@ -25,6 +26,7 @@ export function ListPublication() {
         "https://api.github.com/search/issues?q=repo:SamueLVitor1/Github-Blog"
       )
       .then((response) => {
+        console.log(response.data);
         setListPublication(response.data.items);
       });
   }, []);
@@ -43,8 +45,6 @@ export function ListPublication() {
     });
   }, [namePublication]);
 
-  console.log(publicationsSearched);
-
   if (namePublication === "") {
     return (
       <>
@@ -52,44 +52,48 @@ export function ListPublication() {
           {listPublications
             ? listPublications.map((publication, index) => {
                 return (
-                  <li key={index}>
-                    <header>
-                      <h3>{publication.title}</h3>
-                      <p>Há 1 dia</p>
-                    </header>
+                  <Link key={index} to={`/publication/${publication.title}`}>
+                    <li>
+                      <header>
+                        <h3>{publication.title}</h3>
+                        <p>Há 1 dia</p>
+                      </header>
 
-                    <section>
-                      <p>{publication.body}</p>
-                    </section>
-                  </li>
+                      <section>
+                        <p>{publication.body}</p>
+                      </section>
+                    </li>
+                  </Link>
                 );
               })
-            : "null"}
+            : <h3>Error</h3>}
         </ListPublicationContainer>
       </>
     );
   }
 
-  if(namePublication != ""){
-    return(
+  if (namePublication != "") {
+    return (
       <ListPublicationContainer>
-          {publicationsSearched.length > 0
-            ? publicationsSearched.map((publication, index) => {
-                return (
-                  <li key={index}>
-                    <header>
-                      <h3>{publication.title}</h3>
-                      <p>Há 1 dia</p>
-                    </header>
+        {publicationsSearched.length > 0 ? (
+          publicationsSearched.map((publication, index) => {
+            return (
+              <li key={index}>
+                <header>
+                  <h3>{publication.title}</h3>
+                  <p>Há 1 dia</p>
+                </header>
 
-                    <section>
-                      <p>{publication.body}</p>
-                    </section>
-                  </li>
-                );
-              })
-            : <h3>Conteúdo não encontrado 😕</h3>}
-        </ListPublicationContainer>
-    )
+                <section>
+                  <p>{publication.body}</p>
+                </section>
+              </li>
+            );
+          })
+        ) : (
+          <h3>Conteúdo não encontrado 😕</h3>
+        )}
+      </ListPublicationContainer>
+    );
   }
 }
