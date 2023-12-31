@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { SearchPublicationsContainer } from "./styles";
 import { GitHContext } from "../../context/GitHubContext";
-import axios from "axios";
 
 export function SearchPublications() {
   const [searchValue, setSearchValue] = useState("");
 
-  
+
   const {
     handleSetNamePublication,
     namePublication,

@@ -27,7 +27,6 @@ export function ListPublication() {
         "https://api.github.com/search/issues?q=repo:SamueLVitor1/Github-Blog"
       )
       .then((response) => {
-        console.log(response.data);
         setListPublication(response.data.items);
         handleSetNumberQuantityPublications(response.data.items.length);
       });

@@ -2,20 +2,36 @@ import { ArrowSquareUpRight } from "@phosphor-icons/react";
 import { PublicationHeader, PublicationBody } from "./styles";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+import Markdown from "react-markdown";
+
 import axios from "axios";
 
+interface PublicationInterface {
+  title: string;
+  comments: number;
+  body: any;
+}
+
 export function Publication() {
-  const [publicationInfos, setPublicationInfo] = useState()
+  const [publicationInfos, setPublicationInfo] = useState<PublicationInterface>(
+    {
+      title: "",
+      comments: 2,
+      body: "",
+    }
+  );
 
   const { id } = useParams();
 
   useEffect(() => {
     axios
       .get(
-        `https://api.github.com/search/issues?q=${id}=repo:SamueLVitor1/Github-Blog`
+        `https://api.github.com/search/issues?q=${id}repo:SamueLVitor1/Github-Blog`
       )
       .then((response) => {
-        setPublicationInfo(response.data.items);
+        setPublicationInfo(response.data.items[0]);
+        console.log(publicationInfos);
       });
   }, []);
 
@@ -33,7 +49,7 @@ export function Publication() {
           </a>
         </header>
 
-        <h2></h2>
+        <h2>{publicationInfos ? publicationInfos.title : "carregando"}</h2>
 
         <footer>
           <p>
@@ -88,12 +104,12 @@ export function Publication() {
                 fill="#3A536B"
               />
             </svg>
-            5 comentarios
+            {publicationInfos.comments} comentarios
           </p>
         </footer>
       </PublicationHeader>
       <PublicationBody>
-        <p>{id}</p>
+        {<Markdown>{publicationInfos.body}</Markdown>}
       </PublicationBody>
     </>
   );
