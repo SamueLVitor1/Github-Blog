@@ -17,7 +17,7 @@ export function Publication() {
   const [publicationInfos, setPublicationInfo] = useState<PublicationInterface>(
     {
       title: "",
-      comments: 2,
+      comments: 0,
       body: "",
     }
   );
@@ -30,8 +30,9 @@ export function Publication() {
         `https://api.github.com/search/issues?q=${id}repo:SamueLVitor1/Github-Blog`
       )
       .then((response) => {
+        console.log(response);
         setPublicationInfo(response.data.items[0]);
-        console.log(publicationInfos);
+        
       });
   }, []);
 
@@ -104,12 +105,13 @@ export function Publication() {
                 fill="#3A536B"
               />
             </svg>
-            {publicationInfos.comments} comentarios
           </p>
         </footer>
       </PublicationHeader>
       <PublicationBody>
-        {<Markdown>{publicationInfos.body}</Markdown>}
+        {publicationInfos && publicationInfos.body !== undefined ? (
+          <Markdown>{publicationInfos.body}</Markdown>
+        ) : "carregando"}
       </PublicationBody>
     </>
   );
